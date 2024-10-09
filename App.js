@@ -85,7 +85,7 @@ useEffect(() => {
       <Text style={styles.txt}>{data ? data[0].TestNumber : "Loading"}</Text>
 
       <TouchableOpacity onPress={handleRegister}>
-        <Text style={styles.btn}>Button</Text>
+        <Text style={styles.btn}>Buttonnnn</Text>
       </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
