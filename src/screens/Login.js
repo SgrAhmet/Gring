@@ -16,13 +16,13 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
+
   const setItem = async () => {
     try {
       await AsyncStorage.multiSet([['mail', mail], ['password', password]]);
     } catch (error) {
       console.log(error);
     }
-  };
 
   const handleLogin = () => {
     auth
@@ -122,4 +122,5 @@ const styles = StyleSheet.create({
     zIndex: 99,
   },
 });
+}
 export default Login;

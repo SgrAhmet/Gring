@@ -5,7 +5,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
+
 
 import Enterence from "./src/screens/Enterence"
 import Login from "./src/screens/Login"
@@ -30,6 +34,7 @@ export default function App() {
     return unsubscribe;
   }, []);
 
+
 useEffect(() => {
   
   const getItem = async () => {
@@ -51,6 +56,7 @@ useEffect(() => {
 
   
 }, [])
+
 
   return (
     <NavigationContainer>
