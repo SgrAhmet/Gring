@@ -1,20 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, TextInput, View, Alert } from "react-native";
 import colors from "../styles/colors";
 import MyButton from "../components/MyButton";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
+import { auth } from "../../firebase";
 
 const Register = () => {
-  const navigate = useNavigation();
-  const [userName, setUserName] = useState("");
-  const [mail, setMail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigation = useNavigation();
+  const [userName, setUserName] = useState("Ahmet");
+  const [mail, setMail] = useState("ahmet1aydos@gmail.com");
+  const [password, setPassword] = useState("123456");
 
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleRegister = () => {
+    auth
+      .createUserWithEmailAndPassword(mail, password)
+      .then(() => {
+        Alert.alert("", "User account created");
+        // auth.signOut()
+        navigation.replace("Login")
+      })
+      .catch((error) => {
+        if (error.code === "auth/email-already-in-use") {
+          Alert.alert("", "That email address is already in use!");
+        }
+        if (error.code === "auth/invalid-email") {
+          Alert.alert("", "That email address is invalid!");
+        }
+      });
   };
   return (
     <View style={styles.container}>
@@ -26,8 +45,16 @@ const Register = () => {
           style={styles.input}
           value={userName}
           onChangeText={setUserName}
+          placeholder="Username"
         />
-        <TextInput style={styles.input} value={mail} onChangeText={setMail} />
+        <TextInput
+          style={styles.input}
+          value={mail}
+          onChangeText={setMail}
+          autoComplete={"email"}
+          placeholder="Mail"
+
+        />
 
         <View style={styles.passwordArea}>
           <TextInput
@@ -36,6 +63,8 @@ const Register = () => {
             // inputMode="password"
             value={password}
             onChangeText={setPassword}
+          placeholder="Password"
+
           />
 
           <FontAwesome
@@ -52,7 +81,7 @@ const Register = () => {
 
         <Text
           style={{ fontSize: 16, color: colors.white }}
-          onPress={() => navigate.navigate("Login")}
+          onPress={() => navigation.navigate("Login")}
         >
           Have a account,click here!
         </Text>
@@ -60,7 +89,7 @@ const Register = () => {
         <MyButton
           text={"Register"}
           clr={colors.primary}
-          func={() => console.log(userName)}
+          func={handleRegister}
         />
       </View>
     </View>
@@ -87,7 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     padding: 10,
     paddingHorizontal: 20,
-    width: 200,
+    width: 250,
     borderRadius: 10,
     shadowColor: "black",
     elevation: 20,

@@ -1,10 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import colors from '../styles/colors';
 
 const MyButton = ({text,func,clr}) => {
 
     if(!clr){
-        clr = "lightgreen"
+        clr = colors.primary
     }
 
   return (
@@ -36,6 +37,8 @@ const styles = StyleSheet.create({
     },
     txt:{
         // fontStyle:"italic",
+        fontSize:18,
+        fontWeight:"500"
 
     }
 });
