@@ -4,14 +4,14 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 const MyButton = ({text,func,clr}) => {
 
     if(!clr){
-        clr = "red"
+        clr = "lightgreen"
     }
 
   return (
 
  
       <TouchableOpacity style={[styles.btn,{backgroundColor :clr}]} onPress={func}>
-      <Text>{text}</Text>
+      <Text style={styles.txt}>{text}</Text>
       </TouchableOpacity>
 
   )
@@ -33,6 +33,10 @@ const styles = StyleSheet.create({
         // shadowOpacity:0.1,
         // shadowOffset:5,
         elevation:10
+    },
+    txt:{
+        // fontStyle:"italic",
+
     }
 });
 export default MyButton

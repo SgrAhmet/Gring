@@ -1,38 +1,35 @@
-import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View ,Image} from "react-native";
-import MyButton from '../components/MyButton';
-import colors from '../styles/colors';
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
+import MyButton from "../components/MyButton";
+import colors from "../styles/colors";
+import { useNavigation } from "@react-navigation/native";
 
 const Enterence = () => {
+  const navigation = useNavigation();
 
-  const helloWorld =()=>{
-    console.log("Hello World")
-  }
-
-
-  const merhabaDunya =()=>{
-    console.log("Merhaba Dünya")
-  }
+  const deneme = () => {
+    console.log("ahmet");
+  };
 
   return (
     <View style={styles.container}>
       {/* <Text>This is Enterence Screen!</Text> */}
 
+      <Image style={styles.smallLogo} source={require("../images/logo.png")} />
 
-        <Image style={styles.smallLogo} source={require('../images/logo.png')}/>
-        <MyButton text={""} func={merhabaDunya} clr={colors.primary}/>
-        <MyButton text={""} func={merhabaDunya} clr={colors.white}/>
-        <MyButton text={""} func={merhabaDunya} clr={colors.gray}/>
-        <MyButton text={""} func={merhabaDunya} clr={colors.darkGray}/>
-      
-
-       
-       
-    
-      </View>
-  )
-}
-
+      <MyButton
+        text={"Register"}
+        func={() => navigation.navigate("Register")}
+        clr={colors.primary}
+      />
+      <MyButton
+        text={"Login"}
+        func={() => navigation.navigate("Login")}
+        clr={colors.primary}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -40,12 +37,18 @@ const styles = StyleSheet.create({
     backgroundColor: colors.gray,
     alignItems: "center",
     justifyContent: "center",
-    gap:5
+    gap: 5,
   },
-  smallLogo:{
+  smallLogo: {
     // backgroundColor:"red",
-    width:100,
-    height:100
-  }
+    width: 100,
+    height: 100,
+  },
+  aaa: {
+    backgroundColor: "lightgreen",
+    padding: 20,
+    paddingHorizontal: 40,
+    borderRadius: 20,
+  },
 });
-export default Enterence
+export default Enterence;

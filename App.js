@@ -14,7 +14,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{ headerShown: false, animationEnabled: false }}
+        screenOptions={{headerShown: false,animation: "none"}}
         initialRouteName="Entrance"
       >
     
