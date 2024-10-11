@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View ,Alert} from "react-native";
+import { StyleSheet, Text, View, Alert } from "react-native";
 import { auth } from "../../firebase";
 import colors from "../styles/colors";
 import { TextInput } from "react-native";
 import MyButton from "../components/MyButton";
 import { FontAwesome } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = () => {
   const [mail, setMail] = useState("ahmet1aydos@gmail.com");
@@ -15,27 +16,41 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleLogin = () => {
-    
-    auth.signInWithEmailAndPassword(mail,password).then(() => {
-      Alert.alert("", "kullanıcı giriş yaptı");
-      console.log("auth.currentUser.emailVerified")
-      console.log(auth.currentUser.emailVerified)
-    })
-    .catch((error) => {
-      if (error.code === "auth/missing-password") {
-        Alert.alert("", "lütfen Şifre Alanını doldurunuz");
-      }else if (error.code === "auth/invalid-email") {
-        Alert.alert("", "That email address is invalid!");
-      }else if(error.code === "auth/invalid-credential"){
-        Alert.alert("", "Şifre Yanlış");
-      }
-      else{
-        console.log(error)
-      }
-
-    });
+  const setItem = async () => {
+    try {
+      await AsyncStorage.multiSet([['mail', mail], ['password', password]]);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const handleLogin = () => {
+    auth
+      .signInWithEmailAndPassword(mail, password)
+      .then(() => {
+        if (!auth.currentUser.emailVerified) {
+          auth.currentUser.sendEmailVerification();
+          auth.signOut();
+          Alert.alert('Email Verification', 'We send email vertification, please click that link.');
+        }else{
+          setItem()
+        }
+      })
+      .catch((error) => {
+        if (error.code === "auth/missing-password") {
+          Alert.alert("", "lütfen Şifre Alanını doldurunuz");
+        } else if (error.code === "auth/invalid-email") {
+          Alert.alert("", "That email address is invalid!");
+        } else if (error.code === "auth/invalid-credential") {
+          Alert.alert("", "Şifre Yanlış");
+        } else {
+          console.log(error);
+        }
+      });
+  };
+
+
+
   return (
     <View style={styles.container}>
       <View style={styles.contentArea}>
