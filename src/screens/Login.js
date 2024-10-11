@@ -7,8 +7,8 @@ import MyButton from "../components/MyButton";
 import { FontAwesome } from "@expo/vector-icons";
 
 const Login = () => {
-  const [mail, setMail] = useState("");
-  const [password, setPassword] = useState("");
+  const [mail, setMail] = useState("ahmet1aydos@gmail.com");
+  const [password, setPassword] = useState("123456");
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePassword = () => {
@@ -19,7 +19,8 @@ const Login = () => {
     
     auth.signInWithEmailAndPassword(mail,password).then(() => {
       Alert.alert("", "kullanıcı giriş yaptı");
-    
+      console.log("auth.currentUser.emailVerified")
+      console.log(auth.currentUser.emailVerified)
     })
     .catch((error) => {
       if (error.code === "auth/missing-password") {

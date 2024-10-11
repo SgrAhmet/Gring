@@ -23,7 +23,7 @@ const Register = () => {
       .createUserWithEmailAndPassword(mail, password)
       .then(() => {
         Alert.alert("", "User account created");
-        // auth.signOut()
+        auth.currentUser.sendEmailVerification();
         navigation.replace("Login")
       })
       .catch((error) => {
