@@ -18,9 +18,10 @@ const Login = () => {
   const handleLogin = () => {
     
     auth.signInWithEmailAndPassword(mail,password).then(() => {
-      Alert.alert("", "kullanıcı giriş yaptı");
-      console.log("auth.currentUser.emailVerified")
-      console.log(auth.currentUser.emailVerified)
+      if(!auth.currentUser.emailVerified){
+        auth.signOut()
+        Alert.alert("","Lütfen mailinizi Onaylayın")
+      }
     })
     .catch((error) => {
       if (error.code === "auth/missing-password") {

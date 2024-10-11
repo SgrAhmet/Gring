@@ -22,9 +22,10 @@ const Register = () => {
     auth
       .createUserWithEmailAndPassword(mail, password)
       .then(() => {
-        Alert.alert("", "User account created");
+        Alert.alert("", "User account created,please verify your email");
         auth.currentUser.sendEmailVerification();
-        navigation.replace("Login")
+        auth.signOut()
+        // navigation.replace("Login")
       })
       .catch((error) => {
         if (error.code === "auth/email-already-in-use") {
