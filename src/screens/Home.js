@@ -36,7 +36,7 @@ const Home = () => {
     <View style={styles.container}>
       {/* <Text>This is Home Screen!</Text> */}
 
-      <Image style={styles.smallLogo} source={require("../images/logo.png")} />
+      <Image style={styles.smallLogo} source={require("../images/logo1.png")} />
 
       <MyButton text={"Home Page"}/>
       <MyButton text={auth.currentUser.uid} func={getItem}/>
