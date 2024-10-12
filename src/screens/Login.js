@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Alert, Image } from "react-native";
+import { StyleSheet, Text, View, Alert, Image} from "react-native";
 import { auth } from "../../firebase";
 import colors from "../styles/colors";
 import { TextInput } from "react-native";
@@ -11,13 +11,20 @@ import GoBack from "../components/GoBack";
 import Icon from "react-native-vector-icons/FontAwesome6";
 import Icon2 from "react-native-vector-icons/FontAwesome";
 import { TouchableOpacity } from "react-native";
+import { Link, useNavigation } from "@react-navigation/native";
+import Toast from 'react-native-toast-message';
+
+
 
 const Login = () => {
+
   const [mail, setMail] = useState("");
   // const [mail, setMail] = useState("ahmet1aydos@gmail.com");
   const [password, setPassword] = useState("");
   // const [password, setPassword] = useState("123456");
   const [showPassword, setShowPassword] = useState(false);
+
+  const navigation = useNavigation()
 
   const togglePassword = () => {
     setShowPassword(!showPassword);
@@ -40,27 +47,65 @@ const Login = () => {
         if (!auth.currentUser.emailVerified) {
           auth.currentUser.sendEmailVerification();
           auth.signOut();
-          Alert.alert(
-            "Email Verification",
-            "We send email vertification, please click that link."
-          );
+          // Alert.alert(
+          //   "Email Verification",
+          //   "We send email vertification, please click that link."
+          // );
+
+          Toast.show({
+            type: 'info',
+            text1: 'Email Verification',
+            text2: 'We send email vertification, please click that link.'
+          });
+
         } else {
           setItem();
         }
       })
       .catch((error) => {
         if (error.code === "auth/missing-password") {
-          Alert.alert("", "lütfen Şifre Alanını doldurunuz");
+          // Alert.alert("", "lütfen Şifre Alanını doldurunuz");
+          Toast.show({
+            type: 'info',
+            text1: 'Missing Password',
+            text2: 'Please Enter Your Password'
+          });
         } else if (error.code === "auth/invalid-email") {
-          Alert.alert("", "That email address is invalid!");
+          // Alert.alert("", "That email address is invalid!");
+          Toast.show({
+            type: 'info',
+            text1: 'Invalid Email',
+            text2: 'That email address is invalid!'
+          });
         } else if (error.code === "auth/invalid-credential") {
-          Alert.alert("", "Şifre Yanlış");
+          // Alert.alert("", "Şifre Yanlış");
+          Toast.show({
+            type: 'error',
+            text1: 'Incorrect Password',
+            text2: 'Your password is not correct'
+          });
         } else {
           console.log(error);
         }
       });
   };
 
+  const forgotPassword=()=>{
+    if(mail.trim() == ""){
+      Toast.show({
+        type: 'error',
+        text1: 'Missing Email',
+        text2: 'Your email is missing'
+      });
+    }else{
+      auth.sendPasswordResetEmail(mail)
+      Toast.show({
+        // type: 'sucse',
+        text1: 'Password Reset',
+        text2: 'We send password reset email.Please check your mail.'
+      });
+    }
+  }
   return (
     <View style={styles.container}>
       <GoBack />
@@ -72,7 +117,10 @@ const Login = () => {
         />
         <Text style={styles.upperText}>Log In</Text>
         <Text style={{ fontSize: 20, fontWeight: "300" }}>Hello!</Text>
-        <Text style={{ fontSize: 20, fontWeight: "300" }}>Welcome Back <Icon name="face-grin-hearts" size={25} color={colors.white}/></Text>
+        <Text style={{ fontSize: 20, fontWeight: "300" }}>
+          Welcome Back{" "}
+          <Icon name="face-grin-hearts" size={25} color={colors.white} />
+        </Text>
       </View>
 
       <View style={styles.contentArea}>
@@ -105,12 +153,27 @@ const Login = () => {
 
         {/* <MyButton func={handleLogin} text={"Login"} clr={colors.primary} /> */}
 
-            <TouchableOpacity>
-              <Text>Log In</Text>
-            </TouchableOpacity>
+        <TouchableOpacity style={styles.btn} onPress={handleLogin}>
+          <Text style={{ fontSize: 20, fontWeight: "500" }}>Log In</Text>
+        </TouchableOpacity>
 
+      
 
+        <TouchableOpacity style={{width:"100%"}} onPress={forgotPassword}>
+        <Text style={styles.linkText}>Forgot your password click here!</Text>
+        </TouchableOpacity>
+
+        <View style={styles.bottomMenu}>
+        <Text style={styles.txt}>Don't have an account?</Text>
+        <TouchableOpacity onPress={()=>navigation.navigate("Register")}>
+        <Text style={[styles.txt,{textDecorationLine:"underline",color:colors.primary}]}>SIGN UP</Text>
+        </TouchableOpacity>
+        </View>
       </View>
+      <Toast 
+        //  position='bottom'
+        //  bottomOffset={200}
+        />
     </View>
   );
 };
@@ -120,7 +183,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.gray,
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
+    position:"relative"
   },
   topArea: {
     // backgroundColor:"lightgreen",
@@ -131,6 +195,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     alignItems: "flext-start",
     justifyContent: "flex-end",
+    // position:"absolute",
+    // top:0
+    marginTop:170
   },
   contentArea: {
     // backgroundColor: colors.red,
@@ -140,6 +207,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // justifyContent: "center",
     gap: 20,
+    marginTop:50
   },
 
   inputArea: {
@@ -167,6 +235,38 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "900",
   },
+  btn: {
+    backgroundColor: colors.primary,
+    width: "80%",
+    padding: 15,
+    borderRadius: 10,
+    elevation: 10,
+    display: "flex",
+    alignItems: "center",
+  },
+  linkText: {
+    fontSize: 15,
+    fontWeight: "500",
+    textDecorationLine:"underline",
+    color:colors.primary,
+    textAlign:"right",
+    // backgroundColor:"lightgreen",
+    marginTop:-10,
+    width:"90%"
+  },
+  bottomMenu:{
+    // backgroundColor:"white",
+    width:"80%",
+    display:"flex",
+    flexDirection:"row",
+    alignContent:"center",
+    justifyContent:"center",
+    gap:5
+  },
+  txt:{
+    fontSize:16,
+    fontWeight:"500"
+  }
 });
 
 export default Login;
