@@ -40,11 +40,7 @@ useEffect(() => {
   const getItem = async () => {
     try {
       const value = await AsyncStorage.multiGet(['mail', 'password'])
-      console.log("value is" )
-      console.log(value)
-      if (value[0][1] !== null || value[1][1] !== null) {
-        // console.log(value[0][1]);
-        // console.log(value[1][1]);
+      if (value[0][1] !== null || value[1][1] !== null) { //Veriler Null gelmiyorsa otomatik giriş yapıyor
         auth.signInWithEmailAndPassword(value[0][1],value[1][1])
       }
     } catch (error) {
