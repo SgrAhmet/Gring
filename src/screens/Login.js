@@ -1,29 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Alert } from "react-native";
+import { StyleSheet, Text, View, Alert, Image } from "react-native";
 import { auth } from "../../firebase";
 import colors from "../styles/colors";
 import { TextInput } from "react-native";
 import MyButton from "../components/MyButton";
-import { FontAwesome } from "@expo/vector-icons";
+// import { FontAwesome } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import GoBack from "../components/GoBack";
+
+import Icon from "react-native-vector-icons/FontAwesome6";
+import Icon2 from "react-native-vector-icons/FontAwesome";
+import { TouchableOpacity } from "react-native";
 
 const Login = () => {
-  const [mail, setMail] = useState("ahmet1aydos@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [mail, setMail] = useState("");
+  // const [mail, setMail] = useState("ahmet1aydos@gmail.com");
+  const [password, setPassword] = useState("");
+  // const [password, setPassword] = useState("123456");
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePassword = () => {
     setShowPassword(!showPassword);
   };
 
-
   const setItem = async () => {
     try {
-      await AsyncStorage.multiSet([['mail', mail], ['password', password]]);
+      await AsyncStorage.multiSet([
+        ["mail", mail],
+        ["password", password],
+      ]);
     } catch (error) {
       console.log(error);
     }
-
+  };
   const handleLogin = () => {
     auth
       .signInWithEmailAndPassword(mail, password)
@@ -31,9 +40,12 @@ const Login = () => {
         if (!auth.currentUser.emailVerified) {
           auth.currentUser.sendEmailVerification();
           auth.signOut();
-          Alert.alert('Email Verification', 'We send email vertification, please click that link.');
-        }else{
-          setItem()
+          Alert.alert(
+            "Email Verification",
+            "We send email vertification, please click that link."
+          );
+        } else {
+          setItem();
         }
       })
       .catch((error) => {
@@ -49,19 +61,31 @@ const Login = () => {
       });
   };
 
-
-
   return (
     <View style={styles.container}>
-      <View style={styles.contentArea}>
-        <TextInput
-          style={styles.input}
-          value={mail}
-          onChangeText={setMail}
-          placeholder="Mail"
-        />
+      <GoBack />
 
-        <View style={styles.passwordArea}>
+      <View style={styles.topArea}>
+        <Image
+          style={{ width: 80, height: 80 }}
+          source={require("../images/logoIcon.png")}
+        />
+        <Text style={styles.upperText}>Log In</Text>
+        <Text style={{ fontSize: 20, fontWeight: "300" }}>Hello!</Text>
+        <Text style={{ fontSize: 20, fontWeight: "300" }}>Welcome Back <Icon name="face-grin-hearts" size={25} color={colors.white}/></Text>
+      </View>
+
+      <View style={styles.contentArea}>
+        <View style={styles.inputArea}>
+          <TextInput
+            style={styles.input}
+            value={mail}
+            onChangeText={setMail}
+            placeholder="Mail"
+          />
+        </View>
+
+        <View style={styles.inputArea}>
           <TextInput
             style={styles.input}
             value={password}
@@ -70,18 +94,22 @@ const Login = () => {
             secureTextEntry={showPassword}
           />
 
-          <FontAwesome
-            name="eye"
+          <Icon
+            name={showPassword ? "eye" : "eye-slash"}
             size={30}
-            color={colors.darkGray}
-            style={[
-              styles.eyeIcon,
-              { color: !showPassword ? colors.gray : "black" },
-            ]}
+            color={"black"}
+            style={styles.eyeIcon}
             onPress={togglePassword}
           />
         </View>
-        <MyButton func={handleLogin} text={"Login"} />
+
+        {/* <MyButton func={handleLogin} text={"Login"} clr={colors.primary} /> */}
+
+            <TouchableOpacity>
+              <Text>Log In</Text>
+            </TouchableOpacity>
+
+
       </View>
     </View>
   );
@@ -90,30 +118,44 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.gray,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
+  },
+  topArea: {
+    // backgroundColor:"lightgreen",
+    width: "100%",
+    height: "32%",
+    display: "flex",
+    padding: 20,
+    paddingHorizontal: 40,
+    alignItems: "flext-start",
+    justifyContent: "flex-end",
   },
   contentArea: {
-    backgroundColor: colors.gray,
+    // backgroundColor: colors.red,
     width: "100%",
-    height: "100%",
+    height: "68%",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    // justifyContent: "center",
     gap: 20,
   },
-  input: {
-    backgroundColor: colors.white,
-    padding: 10,
-    paddingHorizontal: 20,
-    width: 250,
-    borderRadius: 10,
-    shadowColor: "black",
-    elevation: 20,
-  },
-  passwordArea: {
+
+  inputArea: {
+    // backgroundColor: "blue",
     position: "relative",
+    width: "80%",
+    borderBottomColor: colors.darkGray,
+    borderBottomWidth: 2,
+  },
+  input: {
+    // backgroundColor: colors.white,
+    // padding: 10,
+    // paddingHorizontal: 20,
+    paddingVertical: 10,
+    width: "85%",
+    // borderRadius: 10,
   },
   eyeIcon: {
     position: "absolute",
@@ -121,6 +163,10 @@ const styles = StyleSheet.create({
     top: "15%",
     zIndex: 99,
   },
+  upperText: {
+    fontSize: 30,
+    fontWeight: "900",
+  },
 });
-}
+
 export default Login;

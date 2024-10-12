@@ -5,6 +5,7 @@ import colors from "../styles/colors";
 import { useNavigation } from "@react-navigation/native";
 import { auth } from "../../firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import GoBack from "../components/GoBack";
 
 const Home = () => {
   const navigation = useNavigation();
@@ -35,7 +36,7 @@ const Home = () => {
   return (
     <View style={styles.container}>
       {/* <Text>This is Home Screen!</Text> */}
-
+      {/* <GoBack/> */}
       <Image style={styles.smallLogo} source={require("../images/logo1.png")} />
 
       <MyButton text={"Home Page"}/>

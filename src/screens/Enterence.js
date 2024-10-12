@@ -42,7 +42,7 @@ const Enterence = () => {
         augue in erat ultrices condimentum.
       </Text>
 
-      <TouchableOpacity style={styles.btn} onPress={() => console.log("dsf")}>
+      <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("Login")}>
         <Text style={{ textAlign: "center", fontSize: 18, fontWeight: "900" }}>
           Continue
         </Text>
