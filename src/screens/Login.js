@@ -18,10 +18,10 @@ import Toast from 'react-native-toast-message';
 
 const Login = () => {
 
-  const [mail, setMail] = useState("");
-  // const [mail, setMail] = useState("ahmet1aydos@gmail.com");
-  const [password, setPassword] = useState("");
-  // const [password, setPassword] = useState("123456");
+  // const [mail, setMail] = useState("");
+  const [mail, setMail] = useState("ahmet1aydos@gmail.com");
+  // const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("123456");
   const [showPassword, setShowPassword] = useState(false);
 
   const navigation = useNavigation()
@@ -181,7 +181,7 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.gray,
+    backgroundColor: colors.lightGray,
     alignItems: "center",
     justifyContent: "center",
     position:"relative"

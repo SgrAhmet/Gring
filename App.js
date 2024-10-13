@@ -1,6 +1,6 @@
 
 import React, { useState,useEffect} from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View,ActivityIndicator } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { onAuthStateChanged } from "firebase/auth";
@@ -15,11 +15,13 @@ import Enterence from "./src/screens/Enterence"
 import Login from "./src/screens/Login"
 import Register from "./src/screens/Register"
 import Home from "./src/screens/Home"
+import colors from "./src/styles/colors";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -41,7 +43,9 @@ useEffect(() => {
     try {
       const value = await AsyncStorage.multiGet(['mail', 'password'])
       if (value[0][1] !== null || value[1][1] !== null) { //Veriler Null gelmiyorsa otomatik giriş yapıyor
-        auth.signInWithEmailAndPassword(value[0][1],value[1][1])
+        auth.signInWithEmailAndPassword(value[0][1],value[1][1]).then(()=>setLoading(false))
+      }else{
+        setLoading(false)
       }
     } catch (error) {
       // console.log(error)
@@ -53,8 +57,17 @@ useEffect(() => {
   
 }, [])
 
+if (loading) {
+  // Yüklenme sırasında ActivityIndicator göstermek
+  return (
+    <View style={styles.loadingContainer}>
+      <ActivityIndicator size="large" color={colors.primary} />
+    </View>
+  );
+}
 
   return (
+  
     <NavigationContainer>
      <Stack.Navigator screenOptions={{ headerShown: false, animation: "none" }}>
         {user ? (
@@ -88,4 +101,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     fontStyle: "italic",
   },
+  loadingContainer:{
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+    backgroundColor:colors.lightGray,
+    height:"100%"
+  }
 });

@@ -54,7 +54,7 @@ const Enterence = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.lightGray,
     alignItems: "center",
     // justifyContent: "center",
     // position:"relative",

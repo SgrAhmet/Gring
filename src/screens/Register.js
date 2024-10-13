@@ -26,7 +26,7 @@ const Register = () => {
         auth.currentUser.sendEmailVerification();
         auth.signOut()
 
-        // navigation.replace("Login")
+
 
       })
       .catch((error) => {
