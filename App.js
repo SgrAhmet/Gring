@@ -8,14 +8,13 @@ import { auth } from "./firebase";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
-
+import colors from "./src/styles/colors";
 
 import Enterence from "./src/screens/Enterence"
 import Login from "./src/screens/Login"
 import Register from "./src/screens/Register"
 import Home from "./src/screens/Home"
-import colors from "./src/styles/colors";
+import Profile from "./src/screens/Profile"
 
 const Stack = createNativeStackNavigator();
 
@@ -72,7 +71,11 @@ if (loading) {
      <Stack.Navigator screenOptions={{ headerShown: false, animation: "none" }}>
         {user ? (
           // Kullanıcı giriş yaptıysa
-          <Stack.Screen name="Home" component={Home} />
+          <>
+             <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Profile" component={Profile} />
+          </>
+       
         ) : (
           // Kullanıcı giriş yapmadıysa
           <>

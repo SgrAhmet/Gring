@@ -39,9 +39,12 @@ const Home = () => {
      
      
       </ScrollView>
+      
 
-        <CustomMenu/>
       </View>
+
+      <CustomMenu/>
+
     </View>
   );
 };
@@ -49,7 +52,7 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: colors.lightGray,
+    // backgroundColor: colors.red,
     alignItems: "center",
     justifyContent: "center",
     // gap: 5,
@@ -72,7 +75,7 @@ const styles = StyleSheet.create({
     
   },
   chatsArea: {
-    backgroundColor: "lightblue",
+    // backgroundColor: "lightblue",
     width:"100%",
     // padding:20,
     
