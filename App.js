@@ -15,6 +15,8 @@ import Login from "./src/screens/Login"
 import Register from "./src/screens/Register"
 import Home from "./src/screens/Home"
 import Profile from "./src/screens/Profile"
+import CreateMessage from "./src/screens/CreateMessage"
+import CreateGroup from "./src/screens/CreateGroup"
 
 const Stack = createNativeStackNavigator();
 
@@ -74,6 +76,8 @@ if (loading) {
           <>
              <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="Profile" component={Profile} />
+              <Stack.Screen name="CreateMessage" component={CreateMessage} />
+              <Stack.Screen name="CreateGroup" component={CreateGroup} />
           </>
        
         ) : (

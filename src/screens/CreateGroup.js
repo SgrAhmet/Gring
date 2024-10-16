@@ -1,15 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import CustomMenu from '../components/CustomMenu';
-import colors from '../styles/colors';
 
-const Profile = () => {
+const CreateGroup = () => {
   return (
     <View style={styles.container}>
-      <Text>Profile</Text>
-
-
-      <CustomMenu selected={"profile"}/>
+      <Text>CreateGroup</Text>
+      <CustomMenu selected={"createGroup"}/>
     </View>
   );
 };
@@ -17,11 +14,11 @@ const Profile = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.lightGray,
+    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 5,
   },
 });
 
-export default Profile;
+export default CreateGroup;

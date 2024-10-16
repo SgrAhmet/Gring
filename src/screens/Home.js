@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import GoBack from "../components/GoBack";
 import { ScrollView } from "react-native";
 import CustomMenu from "../components/CustomMenu";
+import MessageBox from "../components/MessageBox";
 
 
 const Home = () => {
@@ -22,6 +23,13 @@ const Home = () => {
     }
   };
 
+
+  // auth.signOut()
+
+  console.log(auth.currentUser?.uid)
+
+
+
   return (
     <View style={styles.container}>
 
@@ -30,20 +38,28 @@ const Home = () => {
 
       <View style={styles.topArea}>
         <Text style={{fontSize:20,opacity:0.4,fontWeight:"300",color:colors.darkGray}}>Hello,</Text>
-      <Text style={{fontSize:25,fontWeight:"500",color:colors.darkGray}}>Ahmet</Text>
+      <Text style={{fontSize:25,fontWeight:"500",color:colors.darkGray}}>{auth.currentUser?.uid}</Text>
       </View>
 
       <ScrollView style={styles.chatsArea}>
+
+
+      <MessageBox avatar={"1"}/>
+      {/* <MessageBox /> */}
+      {/* <MessageBox /> */}
+
+
    
       
-     
-     
+
+
+
       </ScrollView>
       
 
       </View>
 
-      <CustomMenu/>
+      <CustomMenu selected={"messages"}/>
 
     </View>
   );

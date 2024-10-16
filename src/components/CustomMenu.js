@@ -4,25 +4,32 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon2 from "react-native-vector-icons/FontAwesome";
 import Icon3 from "react-native-vector-icons/Ionicons";
 import colors from "../styles/colors";
+import { useNavigation } from "@react-navigation/native";
 
-const CustomMenu = () => {
+
+const CustomMenu = ({selected}) => {
+  const navigation = useNavigation()
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.btn}>
-        <Icon name="message" size={40} color={colors.gray} />
+      {/* <TouchableOpacity style={[styles.btn,{}]}>
+       */}
+
+       <TouchableOpacity style={[styles.btn, selected === "messages" && styles.selectedBtn]} onPress={()=>navigation.navigate("Home")}>
+        <Icon name="message" size={38} color={colors.gray} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity style={[styles.btn, selected === "createMessage" && styles.selectedBtn]} onPress={()=>navigation.navigate("CreateMessage")}>
         {/* <Icon name="message-plus" size={40} color= {colors.gray}/> */}
         <Icon name="message-plus-outline" size={40} color={colors.gray} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.btn}>
-        <Icon2 name="group" size={35} color={colors.gray} />
+      <TouchableOpacity style={[styles.btn, selected === "createGroup" && styles.selectedBtn]} onPress={()=>navigation.navigate("CreateGroup")}>
+        <Icon2 name="group" size={40} color={colors.gray} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.btn}>
-        <Icon3 name="person-circle-outline" size={40} color={colors.gray} />
+      {/* <TouchableOpacity style={styles.btn} onPress={()=>navigation.navigate("Profile")}> */}
+      <TouchableOpacity style={[styles.btn, selected === "profile" && styles.selectedBtn]} onPress={()=>navigation.navigate("Profile")}>
+        <Icon3 name="person-circle-outline" size={40} color={colors.gray}/>
       </TouchableOpacity>
     </View>
   );
@@ -39,13 +46,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     borderRadius: 40,
-    paddingHorizontal:4
+    paddingHorizontal:4,
+    elevation:10
   },
   btn:{
-    // backgroundColor:colors.white,
-    padding:11,
+    padding:10,
     borderRadius:40,
 
+  },
+  selectedBtn:{
+    backgroundColor:colors.white,
+    elevation:10
   }
 });
 

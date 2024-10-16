@@ -3,13 +3,12 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import CustomMenu from '../components/CustomMenu';
 import colors from '../styles/colors';
 
-const Profile = () => {
+const CreateMessage = () => {
   return (
     <View style={styles.container}>
-      <Text>Profile</Text>
+      <Text>CreateMessage</Text>
 
-
-      <CustomMenu selected={"profile"}/>
+      <CustomMenu selected={"createMessage"}/>
     </View>
   );
 };
@@ -24,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default CreateMessage;
