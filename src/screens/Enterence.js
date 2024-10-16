@@ -10,6 +10,7 @@ import {
 import MyButton from "../components/MyButton";
 import colors from "../styles/colors";
 import { useNavigation } from "@react-navigation/native";
+import Toast from "react-native-toast-message";
 
 // import Icon from 'react-native-vector-icons/FontAwesome6';
 //  <Icon name="house-chimney" size={24} color= {colors.primary}/>
@@ -47,6 +48,11 @@ const Enterence = () => {
           Continue
         </Text>
       </TouchableOpacity>
+
+      <Toast
+      //  position='bottom'
+      //  bottomOffset={200}
+      />
     </View>
   );
 };

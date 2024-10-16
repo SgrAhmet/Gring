@@ -6,13 +6,13 @@ import { TextInput } from "react-native";
 import MyButton from "../components/MyButton";
 // import { FontAwesome } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import GoBack from "../components/GoBack";
 
 import Icon from "react-native-vector-icons/FontAwesome6";
 import Icon2 from "react-native-vector-icons/FontAwesome";
 import { TouchableOpacity } from "react-native";
 import { Link, useNavigation } from "@react-navigation/native";
 import Toast from 'react-native-toast-message';
+import GoBack from "../components/GoBack";
 
 
 
@@ -21,7 +21,7 @@ const Login = () => {
   // const [mail, setMail] = useState("");
   const [mail, setMail] = useState("ahmet1aydos@gmail.com");
   // const [password, setPassword] = useState("");
-  const [password, setPassword] = useState("123456");
+  const [password, setPassword] = useState("122333");
   const [showPassword, setShowPassword] = useState(false);
 
   const navigation = useNavigation()
@@ -47,16 +47,16 @@ const Login = () => {
         if (!auth.currentUser.emailVerified) {
           auth.currentUser.sendEmailVerification();
           auth.signOut();
-          // Alert.alert(
-          //   "Email Verification",
-          //   "We send email vertification, please click that link."
-          // );
+          Alert.alert(
+            "Email Verification",
+            "We send email vertification, please click that link."
+          );
 
-          Toast.show({
-            type: 'info',
-            text1: 'Email Verification',
-            text2: 'We send email vertification, please click that link.'
-          });
+          // Toast.show({
+          //   type: 'info',
+          //   text1: 'Email Verification',
+          //   text2: 'We send email vertification, please click that link.'
+          // });
 
         } else {
           setItem();
@@ -81,8 +81,8 @@ const Login = () => {
           // Alert.alert("", "Şifre Yanlış");
           Toast.show({
             type: 'error',
-            text1: 'Incorrect Password',
-            text2: 'Your password is not correct'
+            text1: 'Invalid Credential',
+            text2: 'Invalid Credential'
           });
         } else {
           console.log(error);

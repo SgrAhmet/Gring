@@ -11,20 +11,6 @@ const Home = () => {
   const navigation = useNavigation();
 
 
-
-
-  const getItem = async () => {
-    try {
-      const value = await AsyncStorage.multiGet(['mail', 'password'])
-      if (value !== null) {
-        console.log(value[0][1]);
-        console.log(value[1][1]);
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  };
-
   const handleSignOut=async()=>{
     auth.signOut()
     try {
@@ -40,7 +26,7 @@ const Home = () => {
       <Image style={styles.smallLogo} source={require("../images/logo1.png")} />
 
       <MyButton text={"Home Page"}/>
-      <MyButton text={auth.currentUser.uid} func={getItem}/>
+      <MyButton text={auth.currentUser.uid}/>
       <MyButton text={auth.currentUser.email} />
       <MyButton text={"Sign Out"} clr={colors.red} func={handleSignOut}/>
    
