@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import CustomMenu from '../components/CustomMenu';
+import colors from '../styles/colors';
 
 const CreateGroup = () => {
   return (
@@ -14,7 +15,8 @@ const CreateGroup = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
+    backgroundColor: colors.red,
+    // backgroundColor: "red",
     alignItems: 'center',
     justifyContent: 'center',
     gap: 5,

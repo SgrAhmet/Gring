@@ -14,14 +14,7 @@ import MessageBox from "../components/MessageBox";
 const Home = () => {
   const navigation = useNavigation();
 
-  const handleSignOut = async () => {
-    auth.signOut();
-    try {
-      await AsyncStorage.multiRemove(["mail", "password"]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
 
 
   // auth.signOut()

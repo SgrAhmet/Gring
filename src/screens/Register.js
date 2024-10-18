@@ -17,6 +17,9 @@ import Icon from "react-native-vector-icons/FontAwesome6";
 import Toast from "react-native-toast-message";
 import GoBack from "../components/GoBack";
 
+import { db } from "../../firestore";
+import {collection,getDocs,addDoc,deleteDoc,updateDoc,doc,query,where} from "firebase/firestore";
+
 const Register = () => {
   const navigation = useNavigation();
   const [userName, setUserName] = useState("");
@@ -29,11 +32,32 @@ const Register = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleCreateUser = async()=>{
+
+    const newData ={
+      userName:userName,
+      userUID:auth.currentUser?.uid,
+      avatar : "2",
+      messageBox :[]
+    }
+
+    try {
+    
+      const ordersCollectionRef = collection(db, "Users");
+      await addDoc(ordersCollectionRef, newData );
+           
+    } catch (error) {
+      console.error("Error adding new order: ", error);
+    }
+
+  }
+
   const handleRegister = () => {
     auth
       .createUserWithEmailAndPassword(mail, password)
       .then(() => {
         Alert.alert("", "User account created,please verify your email");
+        handleCreateUser()
         auth.currentUser.sendEmailVerification();
         auth.signOut();
       })
@@ -45,6 +69,9 @@ const Register = () => {
           Alert.alert("", "That email address is invalid!");
         }
       });
+
+
+
   };
   return (
     <View style={styles.container}>
