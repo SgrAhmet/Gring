@@ -17,6 +17,7 @@ import Home from "./src/screens/Home"
 import Profile from "./src/screens/Profile"
 import CreateMessage from "./src/screens/CreateMessage"
 import CreateGroup from "./src/screens/CreateGroup"
+import ChatArea from "./src/screens/ChatArea"
 
 const Stack = createNativeStackNavigator();
 
@@ -78,6 +79,7 @@ if (loading) {
               <Stack.Screen name="Profile" component={Profile} />
               <Stack.Screen name="CreateMessage" component={CreateMessage} />
               <Stack.Screen name="CreateGroup" component={CreateGroup} />
+              <Stack.Screen name="ChatArea" component={ChatArea} />
           </>
        
         ) : (

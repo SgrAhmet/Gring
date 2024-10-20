@@ -31,35 +31,55 @@ const CreateMessage = () => {
 
 
 
-  const findUser =async()=>{
-    if(keyWord.trim() != ""){
+  // const findUser =async()=>{
+  //   setUserArray([])
+  //   if(keyWord.trim() != ""){
+  //     const usersCollection = collection(db, 'Users');
+  
+  //     // Tüm belgeleri al
+  //     const querySnapshot = await getDocs(usersCollection);
+    
+  //     // Sadece 'userName' alanlarını al
+  //     const userData = querySnapshot.docs.map((doc) => doc.data());
+  //     userData.map((user)=>{
+  //       if(user.userName.trim().toLowerCase().includes(keyWord.trim().toLocaleLowerCase())){
+  //         // console.log(user)
+  //         userArray.push(user)
+  //         console.log(userArray)
+  //       }
+  //     }
+  //     )
+      
+  //   }else{
+  //     console.log("Please Enter keywod")
+  //   }
+
+  // }
+
+  const findUser = async () => {
+    setUserArray([]); // Önce array'i temizleyelim
+    if (keyWord.trim() != "") {
       const usersCollection = collection(db, 'Users');
   
       // Tüm belgeleri al
       const querySnapshot = await getDocs(usersCollection);
-    
+  
       // Sadece 'userName' alanlarını al
       const userData = querySnapshot.docs.map((doc) => doc.data());
-      userData.map((user)=>{
-        if(user.userName.trim().toLowerCase().includes(keyWord.trim().toLocaleLowerCase())){
-          // console.log(user.userName)
-          console.log(user)
-          // setUserArray([user])
-        }
-      }
-      )
+  
+      // Arama kelimesini içeren kullanıcıları filtrele
+      const filteredUsers = userData.filter((user) =>
+        user.userName.trim().toLowerCase().includes(keyWord.trim().toLowerCase())
+      );
       
-    }else{
-      console.log("Please Enter keyword")
+      setUserArray(filteredUsers); // Filtrelenen kullanıcıları state'e ekleyelim
+
+      userArray.map((user)=>(console.log(user.userName)))
+    } else {
+      console.log("Please Enter keyword");
     }
+  };
 
-  }
-
-
-
-  // let x = "Ahmet"
-  // let key = "As"
-  // console.log(x.toLocaleLowerCase().includes(key.toLocaleLowerCase()))
 
   return (
     <KeyboardAvoidingView
@@ -86,11 +106,19 @@ const CreateMessage = () => {
       </View>
 
       <ScrollView contentContainerStyle={styles.footer}>
-        {userArray.map((index) => (
-          <SearchUser key={index} i={index} username={"Ahmet"} photo={`avatar0`}/>
-        ))}
-
-      
+      {userArray.length > 0 ? (
+    userArray.map((user, index) => (
+      <SearchUser
+        key={index}
+        avatar={user.avatar}
+        userName={user.userName}
+        userUID={user.userUID}
+        // messageBox={user.messageBox}
+      />
+    ))
+  ) : (
+    <Text style={styles.txt}>No Users Found</Text> // Eğer sonuç yoksa bilgilendirme mesajı
+  )}
       </ScrollView>
 
 
@@ -136,16 +164,21 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.darkGray,
   },
   footer: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.lightGray,
     display:"flex",
     alignItems:"center",
     justifyContent:"center",
     width: "100%",
     // marginBottom: 400,
     paddingBottom:"25%",
-    // marginTop:10
+    marginTop:"2%"
     // height:"80%"
   },
+  txt:{
+    fontSize:20,
+    fontWeight:"600",
+    color:colors.red
+  }
 });
 
 export default CreateMessage;

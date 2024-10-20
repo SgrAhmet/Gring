@@ -8,20 +8,7 @@ import MyButton from '../components/MyButton';
 import {collection,getDocs,addDoc,deleteDoc,updateDoc,doc,query,where} from "firebase/firestore";
 import {db} from "../../firestore"
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-
-
-const avatarImages = {
-  avatar0: require('../images/avatars/avatar0.png'),
-  avatar1: require('../images/avatars/avatar1.png'),
-  avatar2: require('../images/avatars/avatar2.png'),
-  avatar3: require('../images/avatars/avatar3.png'),
-  avatar4: require('../images/avatars/avatar4.png'),
- 
-  // Diğer avatarlar da buraya eklenebilir
-};
-
-
+import { avatarImages } from '../components/AvatarImages';
 
 
 const Profile = () => {
