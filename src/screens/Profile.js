@@ -12,13 +12,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const avatarImages = {
-  man0: require('../images/avatars/man0.png'),
-  man1: require('../images/avatars/man1.png'),
-  man2: require('../images/avatars/man2.png'),
-  man3: require('../images/avatars/man3.png'),
-  man4: require('../images/avatars/man4.png'),
-  man5: require('../images/avatars/man5.png'),
-  man6: require('../images/avatars/man6.png'),
+  avatar0: require('../images/avatars/avatar0.png'),
+  avatar1: require('../images/avatars/avatar1.png'),
+  avatar2: require('../images/avatars/avatar2.png'),
+  avatar3: require('../images/avatars/avatar3.png'),
+  avatar4: require('../images/avatars/avatar4.png'),
+ 
   // Diğer avatarlar da buraya eklenebilir
 };
 
@@ -27,7 +26,7 @@ const avatarImages = {
 
 const Profile = () => {
 const [useName, setUseName] = useState(null)
-const [avatar, setAvatar] = useState("man0")
+const [avatar, setAvatar] = useState("avatar0")
 
 useEffect(() => {
   
@@ -42,7 +41,7 @@ useEffect(() => {
       }));  
       console.log(data)
       setUseName(data[0].userName)
-      setAvatar(`man${data[0].avatar}`)
+      setAvatar(`avatar${data[0].avatar}`)
 
     } catch (error) {
       console.error("Error fetching data: ", error);
